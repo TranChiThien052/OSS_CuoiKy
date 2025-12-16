@@ -8,7 +8,25 @@
 </head>
 
 <body>
-    <h1>Hello from frontend</h1>
+    <h1>User List</h1>
+    <ul id="users"></ul>
+
+    <script>
+        fetch('http://localhost:3000/api/users')
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById('users');
+                data.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = `ID: ${user.id} | Name: ${user.name} | Email: ${user.email}`;
+                    list.appendChild(li);
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                document.body.innerHTML += '<p style="color:red">Lỗi kết nối API!</p>';
+            });
+    </script>
 </body>
 
 </html>
